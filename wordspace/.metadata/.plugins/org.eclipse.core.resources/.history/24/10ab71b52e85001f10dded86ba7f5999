@@ -1,0 +1,27 @@
+#primero va la version
+
+version: "3.9"
+services: 
+  ucobet-generales-image:
+    image: ucobet-generales-image
+    container_name: ucobet-generales-container
+    ports:
+      - "8080:8080"
+    networks:
+      - spring-network
+  mysql:
+    image: mysql
+    container_name: mysql_database
+    environment:
+    
+    
+    ports:
+      - "3307:3306"
+    networks:
+      - spring-network
+    volumes:
+      - mysql-volume      
+networks: 
+   spring-network:
+volumes:
+  mysql-volume:

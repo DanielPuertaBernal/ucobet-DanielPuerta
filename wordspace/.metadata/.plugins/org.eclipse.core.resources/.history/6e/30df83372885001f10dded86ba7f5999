@@ -1,0 +1,31 @@
+
+#Imagen Modelo
+
+FROM eclipse-temurin:23-jdk
+
+#Definir directorio raiz de nuestro contenedor
+
+WOKRDIR /root
+
+#Copiar y pegar Archivos dentro del contenedor
+
+COPY ./pom.xml /root
+COPY ./.mvn /root/.mvn
+copy ./mvnw.cmd /root
+
+#Descargar las dependencias 
+
+RUN ./mvnw.cmd dependency:go-offline
+
+
+#copiar el codigo fuente dentro del contenedor
+
+COPY ./src /root/src
+
+#Construit nuestra aplicacion 
+
+RUN ./mvnw.cmd clean install -DskipTests
+
+#levantar nuestra aplicion cuando el contenedor inicie
+
+ENTRYPOINT ["java"]

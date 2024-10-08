@@ -1,0 +1,34 @@
+#primero va la version
+
+version: "3.9"
+services: 
+  ucobet-generales-image:
+    image: ucobet-generales-image
+    container_name: ucobet-generales-container
+    ports:
+      - "8080:8080"
+    networks:
+      - spring-network
+    depends_on:
+      - AzureSQL
+      
+#Contenedor Base de datos
+      
+  AzureSQL:
+    image: mcr.microsoft.com/mssql/server 
+    container_name: AzureSQL_database
+    environment:
+      MSSQL_USER: ucobetdbuser
+      MSSQL_DATABASE: ucobet-db
+      MSSQL_PASSWORD: "uc0b3tdbus3r!"
+      MSSQL_SERVER: ucobet-server.database.windows.net
+      MSSQL_PORT: 1433
+      
+    networks:
+      - spring-network
+    volumes:
+      - AzureSQL-volume      
+networks: 
+   spring-network:
+volumes:
+  AzureSQL-volume:

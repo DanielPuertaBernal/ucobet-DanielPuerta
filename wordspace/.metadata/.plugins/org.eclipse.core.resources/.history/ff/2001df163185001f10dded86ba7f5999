@@ -1,0 +1,33 @@
+#Imagen Modelo
+
+FROM eclipse-temurin:23-jdk
+
+#Informar el puerto donde se ejecurar el contenedor (Informativo)
+EXPOSE 8080
+
+#Definir directorio raiz de nuestro contenedor
+
+WORKDIR /root
+
+#Copiar y pegar Archivos dentro del contenedor
+
+COPY ./pom.xml /root
+COPY ./.mvn /root/.mvn
+COPY ./mvnw /root
+
+#Descargar las dependencias 
+
+RUN ./mvnw dependency:go-offline
+
+
+#copiar el codigo fuente dentro del contenedor
+
+COPY ./src /root/src
+
+#Construit nuestra aplicacion 
+
+RUN ./mvnw clean install -DskipTests
+
+#levantar nuestra aplicion cuando el contenedor inicie
+
+ENTRYPOINT ["java", "-jar","/root/target/ucobet-0.0.1-SNAPSHOT.jar"]
