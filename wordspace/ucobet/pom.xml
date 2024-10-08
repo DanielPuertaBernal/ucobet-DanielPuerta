@@ -26,10 +26,10 @@
 		<tag/>
 		<url/>
 	</scm>
-	<properties>
+  	<properties>
+		<java.version>23</java.version>
   		<sonar.organization>danielpuertabernal</sonar.organization>
   		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		<java.version>23</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
